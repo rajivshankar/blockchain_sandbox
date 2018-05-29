@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.omg.stub.java.rmi._Remote_Stub;
-
 public class Wallet {
 	public PrivateKey privateKey;
 	public PublicKey publicKey;
@@ -47,7 +45,7 @@ public class Wallet {
 	}
 	
 	//generates and returns a new Transaction from this wallet
-	public Transaction sendFunds(PublicKey recipient, float value) {
+	public Transaction sendFunds(PublicKey _recipient, float value) {
 		if(getBalance() < value) {
 			System.out.println("#Not enough funds to send transaction. Transaction Discarded.");
 			return null;
@@ -63,12 +61,12 @@ public class Wallet {
 			inputs.add(new TransactionInput(UTXO.id));
 			if (total > value) break;
 		}
-		
-		Transaction newTransaction = new Transaction(publicKey, recipient, value, inputs);
+				
+		Transaction newTransaction = new Transaction(publicKey, _recipient, value, inputs);
 		newTransaction.generateSignature(privateKey);
 		
 		for (TransactionInput input: inputs) {
-			UTXOs.remove(input.transactionOutputID);
+			UTXOs.remove(input.transactionOutputId);
 		}
 		
 		return newTransaction;

@@ -60,7 +60,7 @@ public class Transaction {
 		}
 		
 		for (TransactionInput i: inputs) {
-			i.UTXO = NoobChain.UTXOs.get(i.transactionOutputID);
+			i.UTXO = NoobChain.UTXOs.get(i.transactionOutputId);
 		}
 		
 		//check if transaction is valid:
